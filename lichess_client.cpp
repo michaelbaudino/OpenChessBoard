@@ -1,5 +1,12 @@
 #include "lichess_client.h"
 
+// Unexported functions
+void httpGetRequest(String path, DynamicJsonDocument &jsonResponse);
+void httpPostRequest(String path, DynamicJsonDocument &jsonResponse);
+void httpRequest(String httpVerb, String path, DynamicJsonDocument &jsonResponse);
+void readHeaders(WiFiSSLClient client);
+void processHTTP(WiFiSSLClient client);
+
 /* ---------------------------------------
 *  Fetch current username from Lichess API.
 *  @params[in] WiFiSSLClient
@@ -28,7 +35,7 @@ GameStatus getGameStatus() {
 
 /* ---------------------------------------
  *  Function to send post move request to Lichess API.
- *  Restarts client and stops client after request 
+ *  Restarts client and stops client after request
  *  @params[in] WiFiSSLClient
  *  @return void
 */
@@ -40,9 +47,9 @@ void postMove() {
     clearDisplay();
     DEBUG_SERIAL.print("my move: ");
     DEBUG_SERIAL.println(move_input);
-  
+
     myMove = move_input;
-    
+
     TC4->COUNT32.CTRLA.bit.ENABLE = 0;
 
     DynamicJsonDocument doc(1024);
@@ -54,23 +61,23 @@ void postMove() {
     if (moveSuccess == true) {
       DEBUG_SERIAL.println("move success!");
       myturn = false;
-      TC4->COUNT32.CTRLA.bit.ENABLE = 1; 
+      TC4->COUNT32.CTRLA.bit.ENABLE = 1;
     }
     else
     {
-        TC4->COUNT32.CTRLA.bit.ENABLE = 1;             
-        DEBUG_SERIAL.println("wrong move!");       
+        TC4->COUNT32.CTRLA.bit.ENABLE = 1;
+        DEBUG_SERIAL.println("wrong move!");
         displayMove(myMove);
-        String reverse_move =  (String)myMove.charAt(2) 
+        String reverse_move =  (String)myMove.charAt(2)
         +  (String)myMove.charAt(3)
         +  (String)myMove.charAt(0)
         +  (String)myMove.charAt(1);
-        
-        DEBUG_SERIAL.println(reverse_move);   
-        
+
+        DEBUG_SERIAL.println(reverse_move);
+
         while(reverse_move != move_input && is_game_running){
           move_input = getMoveInput();
-          DEBUG_SERIAL.println(move_input);  
+          DEBUG_SERIAL.println(move_input);
         }
     }
   }
@@ -99,7 +106,7 @@ void httpRequest(String httpVerb, String path, DynamicJsonDocument &jsonResponse
   client.println((String)httpVerb + F(" ") + path + F(" HTTP/1.1"));
   client.println(F("Host: lichess.org"));
   client.print(F("Authorization: Bearer "));
-  client.println(token);
+  client.println(LICHESS_API_TOKEN);
   client.println(F("Connection: close"));
   client.println();
 
@@ -139,17 +146,17 @@ void readHeaders(WiFiSSLClient client) {
  *  Starts the move stream on client.
  *  @params[in] WiFiSSLClient
  *  @return void
-*/  
+*/
 void getStream(WiFiSSLClient &client){
     client.print("GET /api/board/game/stream/");
     client.print((String)currentGameID);
     client.println(" HTTP/1.1");
     client.println("Host: lichess.org");
     client.print("Authorization: Bearer ");
-    client.println(token);
+    client.println(LICHESS_API_TOKEN);
     client.println("Connection: close");
     client.println();
-    delay(500);  
+    delay(500);
     processHTTP(client);
   }
 
@@ -158,7 +165,7 @@ void getStream(WiFiSSLClient &client){
  *  Generic function that checks for http status and skips headers
  *  @params[in] WiFiSSLClient
  *  @return void
-*/   
+*/
 void processHTTP(WiFiSSLClient client) {
   if (client.println() == 0) {
     return;

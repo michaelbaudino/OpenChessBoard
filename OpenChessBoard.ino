@@ -1,20 +1,27 @@
 #include <Arduino.h>
-#include <WiFiNINA.h>
-#include "ArduinoJson-v6.19.4.h"
+
 #include "OpenChessBoard.h"
+
+#include "board_driver.h"
 #include "lichess_client.h"
+#include "timers.h"
+#include "utility.h"
+#include "wifi_client.h"
 
-                         // NOT A DEVELOPER?
-#include "user_config.h" // 👈 HEAD TO THIS FILE (user_config.h)
-                         // TO CONFIGURE YOUR WIFI & LICHESS SETTINGS
+                           // NOT A DEVELOPER?
+#include "configuration.h" // 👈 HEAD TO THIS FILE (configuration.h)
+                           // TO CONFIGURE YOUR WIFI & LICHESS SETTINGS
 
+// Unexported functions
+void fetch_and_print_username();
+void fetch_and_print_ongoing_game();
 
 // WiFi variables
 int status = WL_IDLE_STATUS;
 char server[] = "lichess.org";  // name address for lichess (using DNS)
 WiFiSSLClient StreamClient; // WIFISSLClient for move stream, always connects via SSL (port 443 for https)
 
-//lichess variables
+// Lichess variables
 const char* currentGameID;
 bool myturn = true;
 String lastMove;
@@ -28,7 +35,6 @@ bool isr_first_run = false;
 bool connect_flipstate = false;
 bool is_connecting = false;
 bool is_game_running = false;
-
 
 void setup() {
   //Initialize HW

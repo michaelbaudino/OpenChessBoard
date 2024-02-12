@@ -11,15 +11,15 @@ This project runs on Arduino Nano 33 IoT with the OPENCHESSBOARD hardware. You c
 ## Setup
 ### 1. Download the Arduino IDE
 Get the latest version [here](https://www.arduino.cc/en/software).
-### 2. Install WiFiNINA
-Install [WiFiNINA](https://www.arduino.cc/reference/en/libraries/wifinina) latest version from Arduino IDE's built-in [Library Manager](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library).
+### 2. Install third-party libraries
+Install [WiFiNINA](https://www.arduino.cc/reference/en/libraries/wifinina) and [ArduinoJson 6.x](https://www.arduino.cc/reference/en/libraries/arduinojson/) latest versions from Arduino IDE's built-in [Library Manager](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library).
 ### 3. Import .ino files from this repository
 Download this project and import files with the Arduino IDE.
 ### 4. Update certificate for SSL connection of the WiFi module
 Update the WiFi module to the latest WiFi firmware and add the lichess.org:443 (instead of google.com:443) root certificate as shown in this [example](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-).
 ### 5. Link the OpenChessBoard to your Lichess account
 Generate an API token [here](https://lichess.org/account/oauth/token).
-### 6. Change your login data in `user_config.h`
+### 6. Change your login data in `configuration.h`
 Input your personal WiFi login credentials as well as your Lichess token.
 
 ## How to play
