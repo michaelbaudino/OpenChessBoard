@@ -12,7 +12,7 @@ This project runs on Arduino Nano 33 IoT with the OPENCHESSBOARD hardware. You c
 ### 1. Download the Arduino IDE
 Get the latest version [here](https://www.arduino.cc/en/software).
 ### 2. Install third-party libraries
-Install [WiFiNINA](https://www.arduino.cc/reference/en/libraries/wifinina) and [ArduinoJson 6.x](https://www.arduino.cc/reference/en/libraries/arduinojson/) latest versions from Arduino IDE's built-in [Library Manager](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library).
+Install [WiFiNINA](https://www.arduino.cc/reference/en/libraries/wifinina) and [ArduinoJson](https://www.arduino.cc/reference/en/libraries/arduinojson/) latest versions from Arduino IDE's built-in [Library Manager](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library).
 ### 3. Import .ino files from this repository
 Download this project and import files with the Arduino IDE.
 ### 4. Update certificate for SSL connection of the WiFi module

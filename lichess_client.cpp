@@ -1,9 +1,9 @@
 #include "lichess_client.h"
 
 // Unexported functions
-void httpGetRequest(String path, DynamicJsonDocument &jsonResponse);
-void httpPostRequest(String path, DynamicJsonDocument &jsonResponse);
-void httpRequest(String httpVerb, String path, DynamicJsonDocument &jsonResponse);
+void httpGetRequest(String path, JsonDocument &jsonResponse);
+void httpPostRequest(String path, JsonDocument &jsonResponse);
+void httpRequest(String httpVerb, String path, JsonDocument &jsonResponse);
 void readHeaders(WiFiSSLClient client);
 void processHTTP(WiFiSSLClient client);
 
@@ -13,7 +13,7 @@ void processHTTP(WiFiSSLClient client);
 *  @return String
 */
 String getUsername() {
-  DynamicJsonDocument jsonResponse(1536);
+  JsonDocument jsonResponse;
   httpGetRequest("/api/account", jsonResponse);
 
   return jsonResponse["username"];
@@ -24,12 +24,12 @@ String getUsername() {
  *  @return GameStatus
 */
 GameStatus getGameStatus() {
-  DynamicJsonDocument doc(1536);
-  httpGetRequest("/api/account/playing?nb=1", doc);
+  JsonDocument jsonResponse;
+  httpGetRequest("/api/account/playing?nb=1", jsonResponse);
 
   return {
-    .gameId = doc["nowPlaying"][0]["gameId"],
-    .isMyTurn = doc["nowPlaying"][0]["gameId"]
+    .gameId = jsonResponse["nowPlaying"][0]["gameId"],
+    .isMyTurn = jsonResponse["nowPlaying"][0]["gameId"]
   };
 }
 
@@ -52,12 +52,12 @@ void postMove() {
 
     TC4->COUNT32.CTRLA.bit.ENABLE = 0;
 
-    DynamicJsonDocument doc(1024);
-    httpPostRequest((String)"/api/board/game/" + currentGameID + "/move/" + move_input, doc);
+    JsonDocument jsonResponse;
+    httpPostRequest((String)"/api/board/game/" + currentGameID + "/move/" + move_input, jsonResponse);
 
     //check for sucessful move
     boolean moveSuccess = false;
-    moveSuccess = doc["ok"];
+    moveSuccess = jsonResponse["ok"];
     if (moveSuccess == true) {
       DEBUG_SERIAL.println("move success!");
       myturn = false;
@@ -87,15 +87,15 @@ void postMove() {
  * HTTP requests wrappers
  */
 
-void httpGetRequest(String path, DynamicJsonDocument &jsonResponse) {
+void httpGetRequest(String path, JsonDocument &jsonResponse) {
   httpRequest(F("GET"), path, jsonResponse);
 }
 
-void httpPostRequest(String path, DynamicJsonDocument &jsonResponse) {
+void httpPostRequest(String path, JsonDocument &jsonResponse) {
   httpRequest(F("POST"), path, jsonResponse);
 }
 
-void httpRequest(String httpVerb, String path, DynamicJsonDocument &jsonResponse) {
+void httpRequest(String httpVerb, String path, JsonDocument &jsonResponse) {
   WiFiSSLClient client;
 
   if (!client.connect(server, 443)) {
