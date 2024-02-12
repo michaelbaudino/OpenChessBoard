@@ -7,29 +7,10 @@
 #include <WiFiNINA.h>
 #include "ArduinoJson-v6.19.4.h"
 
-/*
-------------------------------------------------------------
-User Settings START
-Only change this part of the code for standard use
-------------------------------------------------------------
-*/
-//Secret data, change to your credentials!
-char ssid[] = "my_network";     // your network SSID (name), must be 2.4 GHz WiFi!!!
-char pass[] = "my_password";    // your network password 
-char token[] = "my_lichess_API_token"; // your lichess API token
-/*Note: When generating your token, make sure to provide all rights (all sliders set to green) */
+                         // NOT A DEVELOPER?
+#include "user_config.h" // 👈 HEAD TO THIS FILE (user_config.h)
+                         // TO CONFIGURE YOUR WIFI & LICHESS SETTINGS
 
-/*
- * The standard orientation of the OPENCHESSBOARD is when the USB-Plug is on the right,
- * You can change the orientation by using the following define
-*/
-//#define PLUG_AT_TOP
-
-/* 
-------------------------------------------------------------
-User Settings END
-------------------------------------------------------------
-*/
 
 // WiFi variables
 int status = WL_IDLE_STATUS;
@@ -54,10 +35,6 @@ bool is_connecting = false;
 bool is_game_running = false;
 
 
-// Debug Settings
-#define DEBUG false  //set to true for debug output, false for no debug output
-#define DEBUG_SERIAL if(DEBUG)Serial
-
 void setup() {
   //Initialize HW
   initHW();
@@ -66,9 +43,8 @@ void setup() {
   
 #if DEBUG == true
   //Initialize DEBUG_SERIAL and wait for port to open:
-  DEBUG_SERIAL.begin(9600);
-  delay(1000);
-  while (!Serial);
+  Serial.begin(9600);
+  while (!Serial) delay(100);
 #endif  
 
   wifi_setup();
