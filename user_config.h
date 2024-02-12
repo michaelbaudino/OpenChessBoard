@@ -15,4 +15,5 @@ char token[] = "my_lichess_API_token"; // your lichess API token, generated with
  * Debug settings
  */
 #define DEBUG true // set to true for debug output, false for no debug output
+#define HTTP_DEBUG true // set to true to print all HTTP connections content
 #define DEBUG_SERIAL if (DEBUG) Serial

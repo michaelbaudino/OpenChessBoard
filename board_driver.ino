@@ -353,7 +353,6 @@ void displayBootWait(void) {
   digitalWrite(LED_MR_N_PIN, 1);
   digitalWrite(LED_LATCH_PIN, 0);
   shiftOut(boot_led_array);
-  DEBUG_SERIAL.println();
   digitalWrite(LED_LATCH_PIN, 1);  
   digitalWrite(LED_OE_N_PIN , 0);
   delay(100);
