@@ -98,9 +98,10 @@ void httpPostRequest(String path, JsonDocument &jsonResponse) {
 void httpRequest(String httpVerb, String path, JsonDocument &jsonResponse) {
   WiFiSSLClient client;
 
-  if (!client.connect(server, 443)) {
+  while (!client.connect(server, 443)) {
     DEBUG_SERIAL.println(CANNOT_CONNECT_TO_LICHESS);
-    return;
+    DEBUG_SERIAL.println(F("Retrying in 1s…"));
+    delay(1000);
   };
 
   client.println((String)httpVerb + F(" ") + path + F(" HTTP/1.1"));
