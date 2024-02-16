@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <WiFiNINA.h>
 #include "OpenChessBoard.h"
+#include "configuration.h"
 
 void wifi_setup();
 void printWiFiStatus();

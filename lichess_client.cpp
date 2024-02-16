@@ -33,7 +33,7 @@ void postMove(WiFiSSLClient &client) {
             client.println(" HTTP/1.1");
             client.println("Host: lichess.org");
             client.print("Authorization: Bearer ");
-            client.println(token);
+            client.println(LICHESS_API_TOKEN);
             client.println("Connection: close");
             client.println();
 
@@ -90,7 +90,7 @@ void getUsername(WiFiSSLClient &client){
     client.println("Host: lichess.org");
     // Include an authorisation header with the lichess API token
     client.print("Authorization: Bearer ");
-    client.println(token);
+    client.println(LICHESS_API_TOKEN);
     delay(100);
 
     processHTTP(client);
@@ -128,7 +128,7 @@ void getStream(WiFiSSLClient &client){
     client.println(" HTTP/1.1");
     client.println("Host: lichess.org");
     client.print("Authorization: Bearer ");
-    client.println(token);
+    client.println(LICHESS_API_TOKEN);
     client.println("Connection: close");
     client.println();
     delay(500);
@@ -146,7 +146,7 @@ void getGameID(WiFiSSLClient &client){
     client.println("GET /api/account/playing HTTP/1.1");
     client.println("Host: lichess.org");
     client.print("Authorization: Bearer ");
-    client.println(token);
+    client.println(LICHESS_API_TOKEN);
     delay(100);
 
     processHTTP(client);
