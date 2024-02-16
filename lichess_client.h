@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 #include <WiFiNINA.h>
-#include "ArduinoJson-v6.19.4.h"
+#include <ArduinoJson.h>
 #include "OpenChessBoard.h"
 #include "board_driver.h"
 
