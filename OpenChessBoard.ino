@@ -52,11 +52,10 @@ void setup() {
   isr_setup();
 
 
-#if DEBUG == true
-  //Initialize DEBUG_SERIAL and wait for port to open:
+#if DEBUG
+  // Initialize DEBUG_SERIAL and wait for port to open
   DEBUG_SERIAL.begin(9600);
-  delay(1000);
-  while (!Serial);
+  while (!Serial) delay(100);
 #endif
 
   wifi_setup();
