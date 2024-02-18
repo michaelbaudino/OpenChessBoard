@@ -41,7 +41,7 @@ void postMove(WiFiSSLClient &client) {
 
             processHTTP(client);
 
-            DynamicJsonDocument doc(1024);
+            JsonDocument doc;
             DeserializationError error = deserializeJson(doc, client);
 
             client.stop();
@@ -95,7 +95,7 @@ void getUsername(WiFiSSLClient &client){
 
     processHTTP(client);
 
-    DynamicJsonDocument doc(1536);
+    JsonDocument doc;
     DeserializationError error = deserializeJson(doc, client);
     if (error)
     {
@@ -151,7 +151,7 @@ void getGameID(WiFiSSLClient &client){
 
     processHTTP(client);
 
-    DynamicJsonDocument doc(1536);
+    JsonDocument doc;
     DeserializationError error = deserializeJson(doc, client);
     if (error)
     {
