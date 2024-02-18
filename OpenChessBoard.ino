@@ -1,28 +1,8 @@
 #include "OpenChessBoard.h"
 
-/*
-------------------------------------------------------------
-User Settings START
-Only change this part of the code for standard use
-------------------------------------------------------------
-*/
-//Secret data, change to your credentials!
-char ssid[] = "my_network";     // your network SSID (name), must be 2.4 GHz WiFi!!!
-char pass[] = "my_password";    // your network password
-char token[] = "my_lichess_API_token"; // your lichess API token
-/*Note: When generating your token, make sure to provide all rights (all sliders set to green) */
-
-/*
- * The standard orientation of the OPENCHESSBOARD is when the USB-Plug is on the right,
- * You can change the orientation by using the following define
-*/
-//#define PLUG_AT_TOP
-
-/*
-------------------------------------------------------------
-User Settings END
-------------------------------------------------------------
-*/
+                           // NOT A DEVELOPER?
+#include "configuration.h" // 👈 HEAD TO THIS FILE (configuration.h)
+                           // TO CONFIGURE YOUR WIFI & LICHESS SETTINGS
 
 // WiFi variables
 int status = WL_IDLE_STATUS;

@@ -28,9 +28,9 @@ void wifi_setup(){
   // attempt to connect to WiFi network:
   while (status != WL_CONNECTED) {
     DEBUG_SERIAL.print("Attempting to connect to SSID: ");
-    DEBUG_SERIAL.println(ssid);
+    DEBUG_SERIAL.println(WIFI_SSID);
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
-    status = WiFi.begin(ssid, pass);
+    status = WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
     // wait 1 seconds for connection:
     delay(300);
   }
